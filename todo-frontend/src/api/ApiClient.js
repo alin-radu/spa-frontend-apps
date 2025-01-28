@@ -1,7 +1,14 @@
-import axios from 'axios'
+import axios from 'axios';
 
-export const apiClient = axios.create(
-    {
-        baseURL: 'http://localhost:8080'
-    }
-);
+const BASE_URL = 'http://localhost:8080';
+
+export const apiClient = axios.create({
+  baseURL: BASE_URL,
+});
+
+export const setApiClientAuthorizationHeader = (basicToken) =>
+  apiClient.interceptors.request.use((config) => {
+    config.headers.Authorization = basicToken;
+
+    return config;
+  });

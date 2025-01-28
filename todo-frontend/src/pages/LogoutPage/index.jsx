@@ -1,4 +1,4 @@
-const LogoutComponent = () => {
+const LogoutPage = () => {
   return (
     <div className="LogoutComponent">
       <h1>You are logged out!</h1>
@@ -7,4 +7,4 @@ const LogoutComponent = () => {
   );
 };
 
-export default LogoutComponent;
+export default LogoutPage;

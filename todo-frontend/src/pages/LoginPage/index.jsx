@@ -1,17 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../security/AuthContext';
+import { useAuth } from '../../security/AuthContext';
 
-const LoginComponent = () => {
-  const [username, setUsername] = useState('');
-
-  const [password, setPassword] = useState('');
-
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
-
+const LoginPage = () => {
   const navigate = useNavigate();
-
   const authContext = useAuth();
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
 
   function handleUsernameChange(event) {
     setUsername(event.target.value);
@@ -22,7 +19,9 @@ const LoginComponent = () => {
   }
 
   async function handleSubmit() {
-    if (await authContext.login(username, password)) {
+    const isAuth = await authContext.login(username, password);
+
+    if (isAuth) {
       navigate(`/welcome/${username}`);
     } else {
       setShowErrorMessage(true);
@@ -31,9 +30,9 @@ const LoginComponent = () => {
 
   return (
     <div className="Login">
-      <h1>Time to Login!</h1>
+      <h2>Time to Login!</h2>
       {showErrorMessage && (
-        <div className="errorMessage">
+        <div className="alert alert-danger">
           Authentication Failed. Please check your credentials.
         </div>
       )}
@@ -56,14 +55,18 @@ const LoginComponent = () => {
             onChange={handlePasswordChange}
           />
         </div>
-        <div>
-          <button type="button" name="login" onClick={handleSubmit}>
-            login
-          </button>
-        </div>
+
+        <button
+          className="btn btn-warning"
+          type="button"
+          name="login"
+          onClick={handleSubmit}
+        >
+          login
+        </button>
       </div>
     </div>
   );
 };
 
-export default LoginComponent;
+export default LoginPage;

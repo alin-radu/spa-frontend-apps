@@ -5,9 +5,9 @@ const HeaderComponent = () => {
   const authContext = useAuth();
   const isAuthenticated = authContext.isAuthenticated;
 
-  function logout() {
+  const logout = () => {
     authContext.logout();
-  }
+  };
 
   return (
     <header className="border-bottom border-light border-5 mb-5 p-2">
@@ -16,15 +16,15 @@ const HeaderComponent = () => {
           <nav className="navbar navbar-expand-lg">
             <a
               className="navbar-brand ms-2 fs-2 fw-bold text-black"
-              href="https://www.in28minutes.com"
+              href="https://docs.spring.io/"
             >
-              dev
+              dev, hello
             </a>
             <div className="collapse navbar-collapse">
               <ul className="navbar-nav">
                 <li className="nav-item">
                   {isAuthenticated && (
-                    <Link className="nav-link" to="/welcome/in28minutes">
+                    <Link className="nav-link" to="/welcome/dev">
                       Home
                     </Link>
                   )}

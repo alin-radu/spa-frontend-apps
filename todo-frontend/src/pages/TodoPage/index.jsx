@@ -1,23 +1,21 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { retrieveTodoApi, updateTodoApi, createTodoApi } from '../api/TodoApiService';
-import { useAuth } from '../security/AuthContext';
+import { retrieveTodoApi, updateTodoApi, createTodoApi } from '../../api/TodoApiService';
+import { useAuth } from '../../security/AuthContext';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import moment from 'moment';
 
-export default function TodoComponent() {
+export default function TodoPage() {
+  const navigate = useNavigate();
   const { id } = useParams();
+  const authContext = useAuth();
+  const username = authContext.username;
 
   const [description, setDescription] = useState('');
   const [targetDate, setTargetDate] = useState('');
 
-  const authContext = useAuth();
-  const navigate = useNavigate();
-
-  const username = authContext.username;
-
-  const retrieveTodos = useCallback(() => {
-    if (id !== -1) {
+  useEffect(() => {
+    if (Number(id) !== -1) {
       retrieveTodoApi(username, id)
         .then((response) => {
           setDescription(response.data.description);
@@ -25,12 +23,10 @@ export default function TodoComponent() {
         })
         .catch((error) => console.log(error));
     }
-  }, [id, username]);
-
-  useEffect(() => retrieveTodos(), [retrieveTodos]);
+  }, [username, id]);
 
   function onSubmit(values) {
-    console.log(values);
+    console.log('%c-> developmentConsole: onSubmit | values', 'color:#77dcfd', values);
 
     const todo = {
       id: id,
@@ -42,7 +38,7 @@ export default function TodoComponent() {
 
     console.log(todo);
 
-    if (id === -1) {
+    if (Number(id) === -1) {
       createTodoApi(username, todo)
         .then((response) => {
           navigate('/todos');
