@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
 import * as HelloApiService from '../../api/HelloApiService';
-import { useAuth } from '../../security/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 const Button = ({ label, onClickHandler }) => (
   <button className="btn btn-success m-5" onClick={onClickHandler}>

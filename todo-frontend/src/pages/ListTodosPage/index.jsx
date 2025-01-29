@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { retrieveAllTodosForUsernameApi, deleteTodoApi } from '../../api/TodoApiService';
-import { useAuth } from '../../security/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 const ListTodosPage = () => {
   const navigate = useNavigate();

@@ -6,9 +6,9 @@ export const apiClient = axios.create({
   baseURL: BASE_URL,
 });
 
-export const setApiClientAuthorizationHeader = (basicToken) =>
+export const setApiClientAuthorizationHeader = (token) =>
   apiClient.interceptors.request.use((config) => {
-    config.headers.Authorization = basicToken;
+    config.headers.Authorization = token;
 
     return config;
   });

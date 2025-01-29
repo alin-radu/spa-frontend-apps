@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from 'react';
+import { executeJwtAuthService } from '../api/AuthenticationApiService';
 import { setApiClientAuthorizationHeader } from '../api/ApiClient';
-import { executeBasicAuthService } from '../api/AuthenticationApiService';
+import { getJWTTokenString } from '../utils';
 
 export const AuthContext = createContext();
 
@@ -12,17 +13,22 @@ export default function AuthProvider({ children }) {
   const [token, setToken] = useState(null);
 
   async function login(username, password) {
-    const basicToken = 'Basic ' + window.btoa(username + ':' + password);
-
     try {
-      const response = await executeBasicAuthService(basicToken);
+      const response = await executeJwtAuthService(username, password);
 
       if (response.status === 200) {
+        const jwtToken = getJWTTokenString(response.data.token);
+
+        if (!jwtToken) {
+          logout();
+          return false;
+        }
+
         setAuthenticated(true);
         setUsername(username);
-        setToken(basicToken);
+        setToken(jwtToken);
 
-        setApiClientAuthorizationHeader(basicToken);
+        setApiClientAuthorizationHeader(jwtToken);
 
         return true;
       } else {
@@ -34,34 +40,6 @@ export default function AuthProvider({ children }) {
       return false;
     }
   }
-
-  // async function login(username, password) {
-  //   try {
-  //     const response = await executeJwtAuthenticationService(username, password);
-
-  //     if (response.status === 200) {
-  //       const jwtToken = 'Bearer ' + response.data.token;
-
-  //       setAuthenticated(true);
-  //       setUsername(username);
-  //       setToken(jwtToken);
-
-  //       apiClient.interceptors.request.use((config) => {
-  //         console.log('intercepting and adding a token');
-  //         config.headers.Authorization = jwtToken;
-  //         return config;
-  //       });
-
-  //       return true;
-  //     } else {
-  //       logout();
-  //       return false;
-  //     }
-  //   } catch (error) {
-  //     logout();
-  //     return false;
-  //   }
-  // }
 
   function logout() {
     setAuthenticated(false);
@@ -85,6 +63,31 @@ export default function AuthProvider({ children }) {
 //   } else {
 //     setAuthenticated(false);
 //     setUsername(null);
+//     return false;
+//   }
+// }
+
+// v2
+// async function login(username, password) {
+//   const basicToken = getBasicTokenEncoded(username, password);
+
+//   try {
+//     const response = await executeBasicAuthService(basicToken);
+
+//     if (response.status === 200) {
+//       setAuthenticated(true);
+//       setUsername(username);
+//       setToken(basicToken);
+
+//       setApiClientAuthorizationHeader(basicToken);
+
+//       return true;
+//     } else {
+//       logout();
+//       return false;
+//     }
+//   } catch (error) {
+//     logout();
 //     return false;
 //   }
 // }
