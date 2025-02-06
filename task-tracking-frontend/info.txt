@@ -1,0 +1,19 @@
+Running the Frontend in Docker Compose
+
+An experimental build is available as “tasks-fe-docker.zip” in the files section.
+
+This frontend is designed to be run with Docker Compose.
+
+Please note that this will be a separate Docker Compose environment than the one used to run the database.
+
+To run in docker:
+
+Ensure docker is running
+
+Run docker-compose up from the project directory
+
+This will build the frontend docker image. To rebuild run:
+
+docker-compose down
+docker-compose rm
+docker-compose up --build
