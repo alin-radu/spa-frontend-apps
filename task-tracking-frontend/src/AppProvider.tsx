@@ -1,7 +1,9 @@
 import React, { createContext, useContext, useReducer, useEffect } from "react";
-import axios from "axios";
+import axios from "./axiosInstance";
 import TaskList from "./domain/TaskList";
 import Task from "./domain/Task";
+
+
 
 interface AppState {
   taskLists: TaskList[];
