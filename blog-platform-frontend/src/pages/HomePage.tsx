@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { 
-  Card, 
-  CardHeader, 
-  CardBody,
-  Tabs, 
-  Tab,
-} from '@nextui-org/react';
+import { Card, CardHeader, CardBody, Tabs, Tab } from '@nextui-org/react';
 import { apiService, Post, Category, Tag } from '../services/apiService';
 import PostList from '../components/PostList';
 
@@ -16,8 +10,8 @@ const HomePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
-  const [sortBy, setSortBy] = useState("createdAt,desc");
-  const [selectedCategory, setSelectedCategory] = useState<string|undefined>(undefined);
+  const [sortBy, setSortBy] = useState('createdAt,desc');
+  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(undefined);
   const [selectedTag, setSelectedTag] = useState<string | undefined>(undefined);
 
   useEffect(() => {
@@ -25,12 +19,12 @@ const HomePage: React.FC = () => {
       try {
         setLoading(true);
         const [postsResponse, categoriesResponse, tagsResponse] = await Promise.all([
-          apiService.getPosts({      
+          apiService.getPosts({
             categoryId: selectedCategory != undefined ? selectedCategory : undefined,
-            tagId: selectedTag || undefined
+            tagId: selectedTag || undefined,
           }),
           apiService.getCategories(),
-          apiService.getTags()
+          apiService.getTags(),
         ]);
 
         setPosts(postsResponse);
@@ -47,9 +41,9 @@ const HomePage: React.FC = () => {
     fetchData();
   }, [page, sortBy, selectedCategory, selectedTag]);
 
-  const handleCategoryChange = (categoryId: string|undefined) => {
-    if("all" === categoryId){
-      setSelectedCategory(undefined)
+  const handleCategoryChange = (categoryId: string | undefined) => {
+    if ('all' === categoryId) {
+      setSelectedCategory(undefined);
     } else {
       setSelectedCategory(categoryId);
     }
@@ -62,22 +56,22 @@ const HomePage: React.FC = () => {
           <h1 className="text-2xl font-bold">Blog Posts</h1>
         </CardHeader>
         <CardBody>
-          <div className="flex flex-col gap-4">                     
-            <Tabs 
-              selectedKey={selectedCategory} 
+          <div className="flex flex-col gap-4">
+            <Tabs
+              selectedKey={selectedCategory}
               onSelectionChange={(key) => {
-                handleCategoryChange(key as string)
+                handleCategoryChange(key as string);
               }}
               variant="underlined"
               classNames={{
-                tabList: "gap-6",
-                cursor: "w-full bg-primary",
+                tabList: 'gap-6',
+                cursor: 'w-full bg-primary',
               }}
             >
               <Tab key="all" title="All Posts" />
               {categories.map((category) => (
-                <Tab 
-                  key={category.id} 
+                <Tab
+                  key={category.id}
                   title={`${category.name} (${category.postCount})`}
                 />
               ))}
@@ -88,7 +82,9 @@ const HomePage: React.FC = () => {
                 {tags.map((tag) => (
                   <button
                     key={tag.id}
-                    onClick={() => setSelectedTag(selectedTag == tag.id ? undefined : tag.id)}
+                    onClick={() =>
+                      setSelectedTag(selectedTag == tag.id ? undefined : tag.id)
+                    }
                     className={`px-3 py-1 rounded-full text-sm ${
                       selectedTag === tag.id
                         ? 'bg-primary text-white'

@@ -11,7 +11,7 @@ import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
 } from '@nextui-org/react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -19,15 +19,15 @@ import Heading from '@tiptap/extension-heading';
 import BulletList from '@tiptap/extension-bullet-list';
 import OrderedList from '@tiptap/extension-ordered-list';
 import ListItem from '@tiptap/extension-list-item';
-import { 
-  Bold, 
-  Italic, 
-  Undo, 
+import {
+  Bold,
+  Italic,
+  Undo,
   Redo,
   List,
   ListOrdered,
   ChevronDown,
-  X
+  X,
 } from 'lucide-react';
 import { Post, Category, Tag, PostStatus } from '../services/apiService';
 
@@ -85,7 +85,8 @@ const PostForm: React.FC<PostFormProps> = ({
     content: initialPost?.content || '',
     editorProps: {
       attributes: {
-        class: 'prose max-w-none focus:outline-none min-h-[400px] px-4 py-2 border rounded-lg',
+        class:
+          'prose max-w-none focus:outline-none min-h-[400px] px-4 py-2 border rounded-lg',
       },
     },
   });
@@ -128,7 +129,7 @@ const PostForm: React.FC<PostFormProps> = ({
       title: title.trim(),
       content: editor?.getHTML() || '',
       categoryId: categoryId,
-      tagIds: selectedTags.map(tag => tag.id),
+      tagIds: selectedTags.map((tag) => tag.id),
       status,
     });
   };
@@ -140,7 +141,7 @@ const PostForm: React.FC<PostFormProps> = ({
   };
 
   const handleTagRemove = (tagToRemove: Tag) => {
-    setSelectedTags(selectedTags.filter(tag => tag !== tagToRemove));
+    setSelectedTags(selectedTags.filter((tag) => tag !== tagToRemove));
   };
 
   const handleHeadingSelect = (level: number) => {
@@ -148,7 +149,7 @@ const PostForm: React.FC<PostFormProps> = ({
   };
 
   const suggestedTags = availableTags
-    .filter(tag => !selectedTags.includes(tag))
+    .filter((tag) => !selectedTags.includes(tag))
     .slice(0, 5);
 
   return (
@@ -170,11 +171,7 @@ const PostForm: React.FC<PostFormProps> = ({
             <div className="bg-default-100 p-2 rounded-lg mb-2 flex gap-2 flex-wrap items-center">
               <Dropdown>
                 <DropdownTrigger>
-                  <Button
-                    variant="flat"
-                    size="sm"
-                    endContent={<ChevronDown size={16} />}
-                  >
+                  <Button variant="flat" size="sm" endContent={<ChevronDown size={16} />}>
                     Heading
                   </Button>
                 </DropdownTrigger>
@@ -182,13 +179,28 @@ const PostForm: React.FC<PostFormProps> = ({
                   onAction={(key) => handleHeadingSelect(Number(key))}
                   aria-label="Heading levels"
                 >
-                  <DropdownItem key="1" className={editor?.isActive('heading', { level: 1 }) ? 'bg-default-200' : ''}>
+                  <DropdownItem
+                    key="1"
+                    className={
+                      editor?.isActive('heading', { level: 1 }) ? 'bg-default-200' : ''
+                    }
+                  >
                     Heading 1
                   </DropdownItem>
-                  <DropdownItem key="2" className={editor?.isActive('heading', { level: 2 }) ? 'bg-default-200' : ''}>
+                  <DropdownItem
+                    key="2"
+                    className={
+                      editor?.isActive('heading', { level: 2 }) ? 'bg-default-200' : ''
+                    }
+                  >
                     Heading 2
                   </DropdownItem>
-                  <DropdownItem key="3" className={editor?.isActive('heading', { level: 3 }) ? 'bg-default-200' : ''}>
+                  <DropdownItem
+                    key="3"
+                    className={
+                      editor?.isActive('heading', { level: 3 }) ? 'bg-default-200' : ''
+                    }
+                  >
                     Heading 3
                   </DropdownItem>
                 </DropdownMenu>
@@ -279,9 +291,7 @@ const PostForm: React.FC<PostFormProps> = ({
           </div>
 
           <div className="space-y-2">
-            <Select
-              label="Add Tags"
-              selectedKeys={selectedTags.map(tag => tag.id)}>
+            <Select label="Add Tags" selectedKeys={selectedTags.map((tag) => tag.id)}>
               <SelectSection>
                 {suggestedTags.map((tag) => (
                   <SelectItem
@@ -332,11 +342,7 @@ const PostForm: React.FC<PostFormProps> = ({
             >
               Cancel
             </Button>
-            <Button
-              color="primary"
-              type="submit"
-              isLoading={isSubmitting}
-            >
+            <Button color="primary" type="submit" isLoading={isSubmitting}>
               {initialPost ? 'Update' : 'Create'} Post
             </Button>
           </div>

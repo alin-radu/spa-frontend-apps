@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { 
-  Card, 
-  CardHeader,
-  CardBody,
-  Button,
-} from '@nextui-org/react';
+import { Card, CardHeader, CardBody, Button } from '@nextui-org/react';
 import { Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { apiService, Post } from '../services/apiService';
@@ -15,7 +10,7 @@ const DraftsPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
-  const [sortBy, setSortBy] = useState("updatedAt,desc");
+  const [sortBy, setSortBy] = useState('updatedAt,desc');
 
   useEffect(() => {
     const fetchDrafts = async () => {
@@ -55,9 +50,7 @@ const DraftsPage: React.FC = () => {
 
         <CardBody>
           {error && (
-            <div className="mb-4 p-4 text-red-500 bg-red-50 rounded-lg">
-              {error}
-            </div>
+            <div className="mb-4 p-4 text-red-500 bg-red-50 rounded-lg">{error}</div>
           )}
 
           <PostList

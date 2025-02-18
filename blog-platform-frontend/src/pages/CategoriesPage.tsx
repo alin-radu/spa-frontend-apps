@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   CardHeader,
@@ -18,9 +18,9 @@ import {
   ModalBody,
   ModalFooter,
   Tooltip,
-} from "@nextui-org/react";
-import { Plus, Edit2, Trash2 } from "lucide-react";
-import { apiService, Category } from "../services/apiService";
+} from '@nextui-org/react';
+import { Plus, Edit2, Trash2 } from 'lucide-react';
+import { apiService, Category } from '../services/apiService';
 
 interface CategoriesPageProps {
   isAuthenticated: boolean;
@@ -31,8 +31,9 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({ isAuthenticated }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
-  const [newCategoryName, setNewCategoryName] = useState("");
+  const [newCategoryName, setNewCategoryName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -46,7 +47,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({ isAuthenticated }) => {
       setCategories(response);
       setError(null);
     } catch (err) {
-      setError("Failed to load categories. Please try again later.");
+      setError('Failed to load categories. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -60,10 +61,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({ isAuthenticated }) => {
     try {
       setIsSubmitting(true);
       if (editingCategory) {
-        await apiService.updateCategory(
-          editingCategory.id,
-          newCategoryName.trim()
-        );
+        await apiService.updateCategory(editingCategory.id, newCategoryName.trim());
       } else {
         await apiService.createCategory(newCategoryName.trim());
       }
@@ -71,9 +69,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({ isAuthenticated }) => {
       handleModalClose();
     } catch (err) {
       setError(
-        `Failed to ${
-          editingCategory ? "update" : "create"
-        } category. Please try again.`
+        `Failed to ${editingCategory ? 'update' : 'create'} category. Please try again.`
       );
     } finally {
       setIsSubmitting(false);
@@ -82,9 +78,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({ isAuthenticated }) => {
 
   const handleDelete = async (category: Category) => {
     if (
-      !window.confirm(
-        `Are you sure you want to delete the category "${category.name}"?`
-      )
+      !window.confirm(`Are you sure you want to delete the category "${category.name}"?`)
     ) {
       return;
     }
@@ -94,7 +88,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({ isAuthenticated }) => {
       await apiService.deleteCategory(category.id);
       await fetchCategories();
     } catch (err) {
-      setError("Failed to delete category. Please try again.");
+      setError('Failed to delete category. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -102,7 +96,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({ isAuthenticated }) => {
 
   const handleModalClose = () => {
     setEditingCategory(null);
-    setNewCategoryName("");
+    setNewCategoryName('');
     onClose();
   };
 
@@ -114,7 +108,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({ isAuthenticated }) => {
 
   const openAddModal = () => {
     setEditingCategory(null);
-    setNewCategoryName("");
+    setNewCategoryName('');
     onOpen();
   };
 
@@ -136,16 +130,14 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({ isAuthenticated }) => {
 
         <CardBody>
           {error && (
-            <div className="mb-4 p-4 text-red-500 bg-red-50 rounded-lg">
-              {error}
-            </div>
+            <div className="mb-4 p-4 text-red-500 bg-red-50 rounded-lg">{error}</div>
           )}
 
           <Table
             aria-label="Categories table"
             isHeaderSticky
             classNames={{
-              wrapper: "max-h-[600px]",
+              wrapper: 'max-h-[600px]',
             }}
           >
             <TableHeader>
@@ -175,8 +167,8 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({ isAuthenticated }) => {
                         <Tooltip
                           content={
                             category.postCount
-                              ? "Cannot delete category with existing posts"
-                              : "Delete category"
+                              ? 'Cannot delete category with existing posts'
+                              : 'Delete category'
                           }
                         >
                           <Button
@@ -186,9 +178,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({ isAuthenticated }) => {
                             size="sm"
                             onClick={() => handleDelete(category)}
                             isDisabled={
-                              category?.postCount
-                                ? category.postCount > 0
-                                : false
+                              category?.postCount ? category.postCount > 0 : false
                             }
                           >
                             <Trash2 size={16} />
@@ -208,9 +198,7 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({ isAuthenticated }) => {
 
       <Modal isOpen={isOpen} onClose={handleModalClose}>
         <ModalContent>
-          <ModalHeader>
-            {editingCategory ? "Edit Category" : "Add Category"}
-          </ModalHeader>
+          <ModalHeader>{editingCategory ? 'Edit Category' : 'Add Category'}</ModalHeader>
           <ModalBody>
             <Input
               label="Category Name"
@@ -223,12 +211,8 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({ isAuthenticated }) => {
             <Button variant="flat" onClick={handleModalClose}>
               Cancel
             </Button>
-            <Button
-              color="primary"
-              onClick={handleAddEdit}
-              isLoading={isSubmitting}
-            >
-              {editingCategory ? "Update" : "Add"}
+            <Button color="primary" onClick={handleAddEdit} isLoading={isSubmitting}>
+              {editingCategory ? 'Update' : 'Add'}
             </Button>
           </ModalFooter>
         </ModalContent>

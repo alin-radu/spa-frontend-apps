@@ -3,22 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const { login } = useAuth();
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  
-  const navigate = useNavigate();
-  const { login } = useAuth();
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     setError('');
     setIsLoading(true);
 
     try {
-      await login(email, password );
+      await login(email, password);
       navigate('/');
     } catch (err: any) {
       setError(err.message || 'Failed to login. Please try again.');

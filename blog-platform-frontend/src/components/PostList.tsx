@@ -1,6 +1,15 @@
 import React from 'react';
 import { Link, useNavigate, useNavigation } from 'react-router-dom';
-import { Card, CardBody, CardFooter, CardHeader, Chip, Pagination, Select, SelectItem } from '@nextui-org/react';
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Chip,
+  Pagination,
+  Select,
+  SelectItem,
+} from '@nextui-org/react';
 import { Post } from '../services/apiService';
 import { Calendar, Clock, Tag } from 'lucide-react';
 import DOMPurify from 'dompurify';
@@ -24,21 +33,20 @@ const PostList: React.FC<PostListProps> = ({
   onPageChange,
   onSortChange,
 }) => {
- 
   const navigate = useNavigate();
- 
+
   const sortOptions = [
-    { value: "createdAt,desc", label: "Newest First" },
-    { value: "createdAt,asc", label: "Oldest First" },
-    { value: "title,asc", label: "Title A-Z" },
-    { value: "title,desc", label: "Title Z-A" },
+    { value: 'createdAt,desc', label: 'Newest First' },
+    { value: 'createdAt,asc', label: 'Oldest First' },
+    { value: 'title,asc', label: 'Title A-Z' },
+    { value: 'title,desc', label: 'Title Z-A' },
   ];
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
     });
   };
 
@@ -46,8 +54,8 @@ const PostList: React.FC<PostListProps> = ({
     return {
       __html: DOMPurify.sanitize(content, {
         ALLOWED_TAGS: ['p', 'strong', 'em', 'br'],
-        ALLOWED_ATTR: []
-      })
+        ALLOWED_ATTR: [],
+      }),
     };
   };
 
@@ -55,36 +63,33 @@ const PostList: React.FC<PostListProps> = ({
     // First sanitize the HTML
     const sanitizedContent = DOMPurify.sanitize(content, {
       ALLOWED_TAGS: ['p', 'strong', 'em', 'br'],
-      ALLOWED_ATTR: []
+      ALLOWED_ATTR: [],
     });
-    
+
     // Create a temporary div to parse the HTML
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = sanitizedContent;
-    
+
     // Get the text content and limit it
     let textContent = tempDiv.textContent || tempDiv.innerText || '';
     textContent = textContent.trim();
-    
+
     // Limit to roughly 200 characters, ending at the last complete word
     if (textContent.length > 200) {
-      textContent = textContent.substring(0, 200).split(' ').slice(0, -1).join(' ') + '...';
+      textContent =
+        textContent.substring(0, 200).split(' ').slice(0, -1).join(' ') + '...';
     }
-    
+
     return textContent;
   };
 
   if (error) {
-    return (
-      <div className="p-4 text-red-500 bg-red-50 rounded-lg">
-        {error}
-      </div>
-    );
+    return <div className="p-4 text-red-500 bg-red-50 rounded-lg">{error}</div>;
   }
 
   const navToPostPage = (post: Post) => {
-    navigate(`/posts/${post.id}`)
-  }
+    navigate(`/posts/${post.id}`);
+  };
 
   return (
     <div className="w-full space-y-6">
@@ -118,21 +123,20 @@ const PostList: React.FC<PostListProps> = ({
         <>
           <div className="space-y-4">
             {posts?.map((post) => (
-              <Card key={post.id} className="w-full p-2" isPressable={true} onPress={() => navToPostPage(post)}>
-                <CardHeader className="flex gap-3">                 
-                    <div className='flex flex-col'>
-                    <h2 className="text-xl font-bold text-left">
-                      {post.title}
-                    </h2>
-                    <p className="text-small text-default-500">
-                      by {post.author?.name}
-                    </p>                
-                    </div>
+              <Card
+                key={post.id}
+                className="w-full p-2"
+                isPressable={true}
+                onPress={() => navToPostPage(post)}
+              >
+                <CardHeader className="flex gap-3">
+                  <div className="flex flex-col">
+                    <h2 className="text-xl font-bold text-left">{post.title}</h2>
+                    <p className="text-small text-default-500">by {post.author?.name}</p>
+                  </div>
                 </CardHeader>
                 <CardBody>
-                  <p className="line-clamp-3">
-                    {createExcerpt(post.content)}
-                  </p>
+                  <p className="line-clamp-3">{createExcerpt(post.content)}</p>
                 </CardBody>
                 <CardFooter className="flex flex-wrap gap-3">
                   <div className="flex items-center gap-1 text-small text-default-500">
@@ -144,9 +148,7 @@ const PostList: React.FC<PostListProps> = ({
                     {post.readingTime} min read
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    <Chip
-                      className="bg-primary-100 text-primary"
-                    >
+                    <Chip className="bg-primary-100 text-primary">
                       {post.category.name}
                     </Chip>
                     {post.tags.map((tag) => (

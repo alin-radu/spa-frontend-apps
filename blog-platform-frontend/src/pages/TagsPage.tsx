@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   CardHeader,
@@ -19,9 +19,9 @@ import {
   ModalFooter,
   Chip,
   Tooltip,
-} from "@nextui-org/react";
-import { Plus, Trash2, X } from "lucide-react";
-import { apiService, Tag } from "../services/apiService";
+} from '@nextui-org/react';
+import { Plus, Trash2, X } from 'lucide-react';
+import { apiService, Tag } from '../services/apiService';
 
 interface TagsPageProps {
   isAuthenticated: boolean;
@@ -32,7 +32,7 @@ const TagsPage: React.FC<TagsPageProps> = ({ isAuthenticated }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [newTags, setNewTags] = useState<string[]>([]);
-  const [tagInput, setTagInput] = useState("");
+  const [tagInput, setTagInput] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -47,7 +47,7 @@ const TagsPage: React.FC<TagsPageProps> = ({ isAuthenticated }) => {
       setTags(response);
       setError(null);
     } catch (err) {
-      setError("Failed to load tags. Please try again later.");
+      setError('Failed to load tags. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -64,16 +64,14 @@ const TagsPage: React.FC<TagsPageProps> = ({ isAuthenticated }) => {
       await fetchTags();
       handleModalClose();
     } catch (err) {
-      setError("Failed to create tags. Please try again.");
+      setError('Failed to create tags. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleDelete = async (tag: Tag) => {
-    if (
-      !window.confirm(`Are you sure you want to delete the tag "${tag.name}"?`)
-    ) {
+    if (!window.confirm(`Are you sure you want to delete the tag "${tag.name}"?`)) {
       return;
     }
 
@@ -82,7 +80,7 @@ const TagsPage: React.FC<TagsPageProps> = ({ isAuthenticated }) => {
       await apiService.deleteTag(tag.id);
       await fetchTags();
     } catch (err) {
-      setError("Failed to delete tag. Please try again.");
+      setError('Failed to delete tag. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -90,19 +88,19 @@ const TagsPage: React.FC<TagsPageProps> = ({ isAuthenticated }) => {
 
   const handleModalClose = () => {
     setNewTags([]);
-    setTagInput("");
+    setTagInput('');
     onClose();
   };
 
   const handleTagInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" || e.key === ",") {
+    if (e.key === 'Enter' || e.key === ',') {
       e.preventDefault();
       const value = tagInput.trim().toLowerCase();
       if (value && !newTags.includes(value)) {
         setNewTags([...newTags, value]);
-        setTagInput("");
+        setTagInput('');
       }
-    } else if (e.key === "Backspace" && !tagInput && newTags.length > 0) {
+    } else if (e.key === 'Backspace' && !tagInput && newTags.length > 0) {
       setNewTags(newTags.slice(0, -1));
     }
   };
@@ -117,11 +115,7 @@ const TagsPage: React.FC<TagsPageProps> = ({ isAuthenticated }) => {
         <CardHeader className="flex justify-between items-center">
           <h1 className="text-2xl font-bold">Tags</h1>
           {isAuthenticated && (
-            <Button
-              color="primary"
-              startContent={<Plus size={16} />}
-              onClick={onOpen}
-            >
+            <Button color="primary" startContent={<Plus size={16} />} onClick={onOpen}>
               Add Tags
             </Button>
           )}
@@ -129,16 +123,14 @@ const TagsPage: React.FC<TagsPageProps> = ({ isAuthenticated }) => {
 
         <CardBody>
           {error && (
-            <div className="mb-4 p-4 text-red-500 bg-red-50 rounded-lg">
-              {error}
-            </div>
+            <div className="mb-4 p-4 text-red-500 bg-red-50 rounded-lg">{error}</div>
           )}
 
           <Table
             aria-label="Tags table"
             isHeaderSticky
             classNames={{
-              wrapper: "max-h-[600px]",
+              wrapper: 'max-h-[600px]',
             }}
           >
             <TableHeader>
@@ -146,10 +138,7 @@ const TagsPage: React.FC<TagsPageProps> = ({ isAuthenticated }) => {
               <TableColumn>POST COUNT</TableColumn>
               <TableColumn>ACTIONS</TableColumn>
             </TableHeader>
-            <TableBody
-              isLoading={loading}
-              loadingContent={<div>Loading tags...</div>}
-            >
+            <TableBody isLoading={loading} loadingContent={<div>Loading tags...</div>}>
               {tags.map((tag) => (
                 <TableRow key={tag.id}>
                   <TableCell>{tag.name}</TableCell>
@@ -159,8 +148,8 @@ const TagsPage: React.FC<TagsPageProps> = ({ isAuthenticated }) => {
                       <Tooltip
                         content={
                           tag.postCount
-                            ? "Cannot delete tag with existing posts"
-                            : "Delete tag"
+                            ? 'Cannot delete tag with existing posts'
+                            : 'Delete tag'
                         }
                       >
                         <Button
@@ -169,9 +158,7 @@ const TagsPage: React.FC<TagsPageProps> = ({ isAuthenticated }) => {
                           color="danger"
                           size="sm"
                           onClick={() => handleDelete(tag)}
-                          isDisabled={
-                            tag?.postCount ? tag.postCount > 0 : false
-                          }
+                          isDisabled={tag?.postCount ? tag.postCount > 0 : false}
                         >
                           <Trash2 size={16} />
                         </Button>

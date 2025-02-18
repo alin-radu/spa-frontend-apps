@@ -11,15 +11,7 @@ import {
   Divider,
   Avatar,
 } from '@nextui-org/react';
-import { 
-  Calendar,
-  Clock,
-  Tag,
-  Edit,
-  Trash,
-  ArrowLeft,
-  Share
-} from 'lucide-react';
+import { Calendar, Clock, Tag, Edit, Trash, ArrowLeft, Share } from 'lucide-react';
 import { apiService, Post } from '../services/apiService';
 
 interface PostPageProps {
@@ -27,12 +19,10 @@ interface PostPageProps {
   currentUserId?: string;
 }
 
-const PostPage: React.FC<PostPageProps> = ({ 
-  isAuthenticated,
-  currentUserId
-}) => {
-  const { id } = useParams<{ id: string }>();
+const PostPage: React.FC<PostPageProps> = ({ isAuthenticated, currentUserId }) => {
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+
   const [post, setPost] = useState<Post | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -96,8 +86,8 @@ const PostPage: React.FC<PostPageProps> = ({
     return {
       __html: DOMPurify.sanitize(content, {
         ALLOWED_TAGS: ['p', 'strong', 'em', 'br'],
-        ALLOWED_ATTR: []
-      })
+        ALLOWED_ATTR: [],
+      }),
     };
   };
 
@@ -192,10 +182,7 @@ const PostPage: React.FC<PostPageProps> = ({
           <h1 className="text-3xl font-bold">{post.title}</h1>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <Avatar
-                name={post.author?.name}
-                size="sm"
-              />
+              <Avatar name={post.author?.name} size="sm" />
               <span className="text-default-600">{post.author?.name}</span>
             </div>
             <div className="flex items-center gap-2 text-default-500">
@@ -212,7 +199,7 @@ const PostPage: React.FC<PostPageProps> = ({
         <Divider />
 
         <CardBody>
-          <div 
+          <div
             className="prose max-w-none"
             dangerouslySetInnerHTML={createSanitizedHTML(post.content)}
           />
@@ -225,11 +212,7 @@ const PostPage: React.FC<PostPageProps> = ({
               {post.category.name}
             </Chip>
             {post.tags.map((tag) => (
-              <Chip
-                key={tag.id}
-                variant="flat"
-                startContent={<Tag size={14} />}
-              >
+              <Chip key={tag.id} variant="flat" startContent={<Tag size={14} />}>
                 {tag.name}
               </Chip>
             ))}

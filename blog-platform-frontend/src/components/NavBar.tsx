@@ -26,11 +26,7 @@ interface NavBarProps {
   onLogout: () => void;
 }
 
-const NavBar: React.FC<NavBarProps> = ({
-  isAuthenticated,
-  userProfile,
-  onLogout,
-}) => {
+const NavBar: React.FC<NavBarProps> = ({ isAuthenticated, userProfile, onLogout }) => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -53,25 +49,24 @@ const NavBar: React.FC<NavBarProps> = ({
 
       <NavbarContent className="sm:hidden pr-3" justify="center">
         <NavbarBrand>
-          <Link to="/" className="font-bold text-inherit">Blog Platform</Link>
+          <Link to="/" className="font-bold text-inherit">
+            Blog Platform
+          </Link>
         </NavbarBrand>
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="start">
         <NavbarBrand>
-          <Link to="/" className="font-bold text-inherit">Blog Platform</Link>
+          <Link to="/" className="font-bold text-inherit">
+            Blog Platform
+          </Link>
         </NavbarBrand>
         {menuItems.map((item) => (
-          <NavbarItem
-            key={item.path}
-            isActive={location.pathname === item.path}
-          >
+          <NavbarItem key={item.path} isActive={location.pathname === item.path}>
             <Link
               to={item.path}
               className={`text-sm ${
-                location.pathname === item.path
-                  ? 'text-primary'
-                  : 'text-default-600'
+                location.pathname === item.path ? 'text-primary' : 'text-default-600'
               }`}
             >
               {item.name}
@@ -116,11 +111,8 @@ const NavBar: React.FC<NavBarProps> = ({
                     name={userProfile?.name}
                   />
                 </DropdownTrigger>
-                <DropdownMenu aria-label="User menu">                
-                  <DropdownItem
-                    key="drafts"
-                    startContent={<Edit3 size={16} />}
-                  >
+                <DropdownMenu aria-label="User menu">
+                  <DropdownItem key="drafts" startContent={<Edit3 size={16} />}>
                     <Link to="/posts/drafts">My Drafts</Link>
                   </DropdownItem>
                   <DropdownItem
@@ -153,9 +145,7 @@ const NavBar: React.FC<NavBarProps> = ({
             <Link
               to={item.path}
               className={`w-full ${
-                location.pathname === item.path
-                  ? 'text-primary'
-                  : 'text-default-600'
+                location.pathname === item.path ? 'text-primary' : 'text-default-600'
               }`}
               onClick={() => setIsMenuOpen(false)}
             >

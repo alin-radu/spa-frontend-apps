@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Button,
-} from '@nextui-org/react';
+import { Card, CardBody, CardHeader, Button } from '@nextui-org/react';
 import { ArrowLeft } from 'lucide-react';
 import { apiService, Post, Category, Tag, PostStatus } from '../services/apiService';
 import PostForm from '../components/PostForm';
 
 const EditPostPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+
   const [post, setPost] = useState<Post | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
@@ -26,7 +22,7 @@ const EditPostPage: React.FC = () => {
         setLoading(true);
         const [categoriesResponse, tagsResponse] = await Promise.all([
           apiService.getCategories(),
-          apiService.getTags()
+          apiService.getTags(),
         ]);
 
         setCategories(categoriesResponse);
@@ -62,7 +58,7 @@ const EditPostPage: React.FC = () => {
       if (id) {
         await apiService.updatePost(id, {
           ...postData,
-          id
+          id,
         });
       } else {
         await apiService.createPost(postData);
@@ -112,17 +108,13 @@ const EditPostPage: React.FC = () => {
             >
               Back
             </Button>
-            <h1 className="text-2xl font-bold">
-              {id ? 'Edit Post' : 'Create New Post'}
-            </h1>
+            <h1 className="text-2xl font-bold">{id ? 'Edit Post' : 'Create New Post'}</h1>
           </div>
         </CardHeader>
 
         <CardBody>
           {error && (
-            <div className="mb-4 p-4 text-red-500 bg-red-50 rounded-lg">
-              {error}
-            </div>
+            <div className="mb-4 p-4 text-red-500 bg-red-50 rounded-lg">{error}</div>
           )}
 
           <PostForm
