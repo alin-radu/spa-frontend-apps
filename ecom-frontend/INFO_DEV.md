@@ -4,9 +4,9 @@
 
 #### 1. Spring Boot basics
 
-- title: Build a Task Tracker in Spring Boot for Beginners
-- author: Devtiro
-- link: https://www.youtube.com/watch?v=brnazVsG4cY
+- title: Spring Framework and Spring Boot Tutorial with Project
+- author: Telusko
+- link: https://www.youtube.com/watch?v=-Fe0zk-F4OA
 
 ### II. GITHUB
 
@@ -15,11 +15,11 @@
 ### III. APP
 
 #### 1. Server: 
-- project: task-tracker
+- project: ecom-platform
 - github: https://github.com/alin-radu/spring-boot-projects
 - deploy: -
 
 #### 2. Client-Browser:
-- project: task-tracker-frontend
+- project: ecom-platform-frontend
 - github: https://github.com/alin-radu/spa-frontend-apps
 - deploy: -

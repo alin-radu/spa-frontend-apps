@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import axios from 'axios';
 
-const Navbar = ({ onSelectCategory}) => {
+const Navbar = ({ onSelectCategory }) => {
   const getInitialTheme = () => {
     const storedTheme = localStorage.getItem('theme');
     return storedTheme ? storedTheme : 'light-theme';
@@ -71,8 +71,8 @@ const Navbar = ({ onSelectCategory}) => {
       <header>
         <nav className="navbar navbar-expand-lg fixed-top">
           <div className="container-fluid">
-            <a className="navbar-brand" href="https://telusko.com/">
-              Telusko
+            <a className="navbar-brand" href="https://google.com/">
+              Ecom
             </a>
             <button
               className="navbar-toggler"
@@ -125,7 +125,7 @@ const Navbar = ({ onSelectCategory}) => {
 
                 <li className="nav-item"></li>
               </ul>
-              <button className="theme-btn" onClick={() => toggleTheme()}>
+              <button className="theme-btn small" onClick={() => toggleTheme()}>
                 {theme === 'dark-theme' ? (
                   <i className="bi bi-moon-fill"></i>
                 ) : (
