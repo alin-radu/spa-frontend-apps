@@ -39,8 +39,8 @@ export interface Post {
   category: Category;
   tags: Tag[];
   readingTime?: number;
-  createdAt: string;
-  updatedAt: string;
+  createdDate: string;
+  updatedDate: string;
   status?: PostStatus;
 }
 

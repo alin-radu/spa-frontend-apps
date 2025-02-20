@@ -36,8 +36,8 @@ const PostList: React.FC<PostListProps> = ({
   const navigate = useNavigate();
 
   const sortOptions = [
-    { value: 'createdAt,desc', label: 'Newest First' },
-    { value: 'createdAt,asc', label: 'Oldest First' },
+    { value: 'createdDate,desc', label: 'Newest First' },
+    { value: 'createdDate,asc', label: 'Oldest First' },
     { value: 'title,asc', label: 'Title A-Z' },
     { value: 'title,desc', label: 'Title Z-A' },
   ];
@@ -141,7 +141,7 @@ const PostList: React.FC<PostListProps> = ({
                 <CardFooter className="flex flex-wrap gap-3">
                   <div className="flex items-center gap-1 text-small text-default-500">
                     <Calendar size={16} />
-                    {formatDate(post.createdAt)}
+                    {formatDate(post.createdDate)}
                   </div>
                   <div className="flex items-center gap-1 text-small text-default-500">
                     <Clock size={16} />

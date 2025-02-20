@@ -187,7 +187,7 @@ const PostPage: React.FC<PostPageProps> = ({ isAuthenticated, currentUserId }) =
             </div>
             <div className="flex items-center gap-2 text-default-500">
               <Calendar size={16} />
-              <span>{formatDate(post.createdAt)}</span>
+              <span>{formatDate(post.createdDate)}</span>
             </div>
             <div className="flex items-center gap-2 text-default-500">
               <Clock size={16} />

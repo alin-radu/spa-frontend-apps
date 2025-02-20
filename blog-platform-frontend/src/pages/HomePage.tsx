@@ -10,7 +10,7 @@ const HomePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
-  const [sortBy, setSortBy] = useState('createdAt,desc');
+  const [sortBy, setSortBy] = useState('createdDate,desc');
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>(undefined);
   const [selectedTag, setSelectedTag] = useState<string | undefined>(undefined);
 

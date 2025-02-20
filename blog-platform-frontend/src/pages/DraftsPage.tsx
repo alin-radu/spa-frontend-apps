@@ -10,7 +10,7 @@ const DraftsPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
-  const [sortBy, setSortBy] = useState('updatedAt,desc');
+  const [sortBy, setSortBy] = useState('updatedDate,desc');
 
   useEffect(() => {
     const fetchDrafts = async () => {
