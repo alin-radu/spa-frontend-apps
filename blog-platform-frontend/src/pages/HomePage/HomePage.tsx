@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardBody, Tabs, Tab } from '@nextui-org/react';
-import { apiService, Post, Category, Tag } from '../services/apiService';
-import PostList from '../components/PostList';
+import { apiService, Post, Category, Tag } from '../../services/apiService';
+import PostList from '../../components/PostList';
 
-const HomePage: React.FC = () => {
+export const HomePage: React.FC = () => {
   const [posts, setPosts] = useState<Post[] | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState('createdDate,desc');
+
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>(undefined);
   const [selectedTag, setSelectedTag] = useState<string | undefined>(undefined);
 
@@ -112,5 +115,3 @@ const HomePage: React.FC = () => {
     </div>
   );
 };
-
-export default HomePage;

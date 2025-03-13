@@ -20,20 +20,20 @@ import {
   Tooltip,
 } from '@nextui-org/react';
 import { Plus, Edit2, Trash2 } from 'lucide-react';
-import { apiService, Category } from '../services/apiService';
+import { apiService, Category } from '../../services/apiService';
 
 interface CategoriesPageProps {
   isAuthenticated: boolean;
 }
 
-const CategoriesPage: React.FC<CategoriesPageProps> = ({ isAuthenticated }) => {
+export const CategoriesPage: React.FC<CategoriesPageProps> = ({ isAuthenticated }) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [newCategoryName, setNewCategoryName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -220,5 +220,3 @@ const CategoriesPage: React.FC<CategoriesPageProps> = ({ isAuthenticated }) => {
     </div>
   );
 };
-
-export default CategoriesPage;

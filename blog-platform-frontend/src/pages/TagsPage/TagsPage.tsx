@@ -21,13 +21,13 @@ import {
   Tooltip,
 } from '@nextui-org/react';
 import { Plus, Trash2, X } from 'lucide-react';
-import { apiService, Tag } from '../services/apiService';
+import { apiService, Tag } from '../../services/apiService';
 
 interface TagsPageProps {
   isAuthenticated: boolean;
 }
 
-const TagsPage: React.FC<TagsPageProps> = ({ isAuthenticated }) => {
+export const TagsPage: React.FC<TagsPageProps> = ({ isAuthenticated }) => {
   const [tags, setTags] = useState<Tag[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -218,5 +218,3 @@ const TagsPage: React.FC<TagsPageProps> = ({ isAuthenticated }) => {
     </div>
   );
 };
-
-export default TagsPage;

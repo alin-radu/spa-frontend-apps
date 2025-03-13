@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardBody, CardHeader, Button } from '@nextui-org/react';
 import { ArrowLeft } from 'lucide-react';
-import { apiService, Post, Category, Tag, PostStatus } from '../services/apiService';
-import PostForm from '../components/PostForm';
+import { apiService, Post, Category, Tag, PostStatus } from '../../services/apiService';
+import PostForm from '../../components/PostForm';
 
-const EditPostPage: React.FC = () => {
+export const EditPostPage: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
@@ -130,5 +130,3 @@ const EditPostPage: React.FC = () => {
     </div>
   );
 };
-
-export default EditPostPage;

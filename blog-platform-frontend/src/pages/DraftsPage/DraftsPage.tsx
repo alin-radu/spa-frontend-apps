@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardBody, Button } from '@nextui-org/react';
 import { Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { apiService, Post } from '../services/apiService';
-import PostList from '../components/PostList';
+import { apiService, Post } from '../../services/apiService';
+import PostList from '../../components/PostList';
 
-const DraftsPage: React.FC = () => {
+export const DraftsPage: React.FC = () => {
   const [drafts, setDrafts] = useState<Post[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -82,5 +82,3 @@ const DraftsPage: React.FC = () => {
     </div>
   );
 };
-
-export default DraftsPage;

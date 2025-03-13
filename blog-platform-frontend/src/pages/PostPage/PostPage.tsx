@@ -12,14 +12,14 @@ import {
   Avatar,
 } from '@nextui-org/react';
 import { Calendar, Clock, Tag, Edit, Trash, ArrowLeft, Share } from 'lucide-react';
-import { apiService, Post } from '../services/apiService';
+import { apiService, Post } from '../../services/apiService';
 
 interface PostPageProps {
   isAuthenticated?: boolean;
   currentUserId?: string;
 }
 
-const PostPage: React.FC<PostPageProps> = ({ isAuthenticated, currentUserId }) => {
+export const PostPage: React.FC<PostPageProps> = ({ isAuthenticated, currentUserId }) => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
@@ -222,5 +222,3 @@ const PostPage: React.FC<PostPageProps> = ({ isAuthenticated, currentUserId }) =
     </div>
   );
 };
-
-export default PostPage;

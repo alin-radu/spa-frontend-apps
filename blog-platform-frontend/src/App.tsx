@@ -1,14 +1,21 @@
-import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import NavBar from './components/NavBar';
-import HomePage from './pages/HomePage';
-import EditPostPage from './pages/EditPostPage';
-import PostPage from './pages/PostPage';
-import CategoriesPage from './pages/CategoriesPage';
-import TagsPage from './pages/TagsPage';
-import DraftsPage from './pages/DraftsPage';
-import LoginPage from './pages/LoginPage';
+
+// helpers
 import { AuthProvider, useAuth } from './context/AuthContext';
+
+// pages
+import { HomePage } from './pages/HomePage';
+import { CategoriesPage } from './pages/CategoriesPage/CategoriesPage';
+import { DraftsPage } from './pages/DraftsPage';
+import { EditPostPage } from './pages/EditPostPage/EditPostPage';
+import { LoginPage } from './pages/LoginPage/LoginPage';
+import { PostPage } from './pages/PostPage/PostPage';
+import { TagsPage } from './pages/TagsPage/TagsPage';
+
+// components
+import NavBar from './components/NavBar';
+
+import './App.css';
 
 // Protected Route component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
